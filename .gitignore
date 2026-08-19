@@ -1,1 +1,63 @@
-.vscode
+# ==============================================================================
+# LEARN_MONTINODE ENGINE: REPOSITORY IGNORE CONFIGURATION (US ENGLISH)
+# DEVELOPMENT NODE: Monti11.studio.ai (MONTIDROID.COM)
+# AUTHORIZATION: JOHN CHARLES MONTI EXCLUSIVE
+# STANDARD: MONTI_ANSI_F841005
+# VALIDATION: JOHNCHARLESMONTI.COM?IDENTITY
+# ==============================================================================
+
+# Compiled Object files and Executables
+*.o
+*.obj
+*.out
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# C/C++ Build Directories and CMake Cache
+build/
+bin/
+out/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+compile_commands.json
+
+# IDE and Editor Directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Operating System Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Debug and Profiling Artifacts
+*.dSYM/
+*.su
+*.idb
+*.pdb
+core
+core.*
+vgcore.*
+
+# Local Environment and Cryptographic Secrets (Preclusion)
+.env
+.env.local
+*.pem
+*.key
+monti_private_keys/
