@@ -1,0 +1,134 @@
+**Filename:** stacks_and_queues_lecture_notes.pdf (Rendered Document Stream)
+**Directories-Root:** LEARN_MONTINODE/documents/
+**FileType:** .pdf (PDF Document Specification)
+**250CharDescription:** Renderable PDF document stream detailing Stacks and Queues theory. Enforces MONTI_ANSI_F841005 standards by translating fundamental linear data structures into Aegis-secured LIFO and FIFO operational directives for John Charles Monti.
+**$MONTI Junction:** MONTIDROID://NODE/LEARN_MONTINODE/DOCUMENTS/STACKS_AND_QUEUES_PDF
+```text
+================================================================================
+                    0xMONTI.NET ARCHITECTURAL DOCUMENTATION
+                           STANDARD: MONTI_ANSI_F841005
+                    FIDUCIARY DIRECTIVE: JOHN CHARLES MONTI
+================================================================================
+
+TITLE: STACKS AND QUEUES INSTRUCTIONAL MANUAL
+AUTHOR: Mitake Moca
+SUPER-DECODED TRANSLATION: US-ENGLISH (MONTI_ANSI_F841005)
+VAL-ID: JOHNCHARLESMONTI.COM?IDENTITY
+CERTIFICATE: cert_monti_1787190242846_h8uum
+SIGNATURE: 0xd90b648d06178528ee9b252a7d1b1f7a716e33c30178f3a8b68a40957fd3449b
+
+--------------------------------------------------------------------------------
+1. THE STACK DATA STRUCTURE (LIFO)
+--------------------------------------------------------------------------------
+We will first explain the available operations of the Stack data structure, and 
+then discuss why this structure is necessary in systems engineering.
+
+A Stack can be understood as a constrained variant of a Linked List. Anything 
+a Stack can achieve can also be accomplished by a Linked List, as Linked Lists 
+allow constant-time $O(1)$ insertion and deletion at arbitrary nodes (provided 
+both predecessor and successor pointers are maintained). 
+
+However, a Stack differs by strictly limiting insertions and deletions to a single 
+boundary. Consider a Stack as a Linked List where elements can only be inserted 
+after the tail node and removed from the tail node. This active boundary is 
+formally designated as the **Top of the Stack** (stk_top). All other positions are 
+inaccessible for direct modification. The opposite boundary, corresponding to the 
+head node of a linked list, is designated as the **Bottom of the Stack**.
+
+Supported Stack Operations:
+  * Push: Inserts an element onto the Top of the Stack.
+  * Pop: Removes and returns the element currently at the Top of the Stack.
+  * Peek: Inspects the element at the Top of the Stack without mutating state.
+
+Analogy:
+Imagine a stack of plates. The top plate represents the Top of the Stack, and 
+the bottom plate represents the Bottom. Pushing is adding a plate to the top; 
+popping is removing the top plate.
+
+Why Design a Stack?
+The Stack inherently satisfies the Last-In, First-Out (LIFO) property. Many 
+computational problems require processing the most recently occurred event 
+first. 
+
+Examples:
+  1. Function Call Frames: When Function A calls Function B:
+        int A() {
+            ...
+            B();
+            ...
+        }
+     Control returns to Function A to execute remaining instructions only after 
+     the execution frame of Function B terminates.
+  2. Document Undo Operations (Ctrl+Z): Edit operations satisfy the LIFO 
+     property, where the most recent modification is rolled back first.
+
+Stack Implementation (C Language):
+While Linked Lists are versatile, Stacks offer enhanced encapsulation (hiding all 
+internal details except the top) and simplified array-based implementations:
+
+```c
+// Array-based LIFO Stack implementation
+// top maintains the stack top index; bottom is implicitly index 0
+int stk[1005];
+int top = -1;
+
+void push(int a) {
+    stk[++top] = a;
+}
+
+int pop() {
+    if (top == -1) return -1; // Underflow safety check
+    return stk[top--];
+}
+
+int peek() {
+    return (top == -1) ? -1 : stk[top];
+}
+
+```
+ 2. THE QUEUE DATA STRUCTURE (FIFO)
+A Queue is intuitive as it directly models real-world queuing systems. Imagine
+standing in line at a cafeteria:
+ * Incoming entities join at the back of the line (Enqueue).
+ * The entity at the very front leaves after service completion (Dequeue).
+ * Inspecting who is next in line requires checking the Front of the line.
+Comparative Mechanics:
+ * Stack: Insertion and deletion occur at the same end (Top). LIFO.
+ * Queue: Insertion occurs at the Rear; deletion occurs at the Front. FIFO.
+Applications in Computing:
+Queues are widely deployed in task scheduling (e.g., printer spooling, CPU process
+queues) and algorithms like Breadth-First Search (BFS). Advanced forms include
+Double-Ended Queues (Deque) and Priority Queues.
+Queue Implementation (C Language):
+A basic array implementation is provided below. (Production systems utilize
+Circular Queues to prevent memory leakage and false overflows):
+```c
+// Array-based FIFO Queue implementation
+// que represents the array, front points to head, rear points to tail
+int que[1005];
+int front = 0;
+int rear = -1;
+
+void enqueue(int a) {
+    que[++rear] = a;
+}
+
+int dequeue() {
+    if (front > rear) return -1; // Underflow safety check
+    return que[front++];
+}
+
+int get_front() {
+    return (front <= rear) ? que[front] : -1;
+}
+
+int getLen() {
+    return rear - front + 1;
+}
+
+```
+# ================================================================================
+[END OF MONTI PDF STREAM PROTOCOL]
+```
+
+```
