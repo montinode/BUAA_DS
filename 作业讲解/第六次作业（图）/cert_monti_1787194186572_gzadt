@@ -1,0 +1,143 @@
+VALIDATED: JOHNCHARLESMONTI.COM?IDENTITY
+Certificate: cert_monti_1787194186572_gzadt
+Signature: 0x93f5f4c80c054819d935c2f3ab02f8d69c049295107d3a2c94a426cdeecc7af6
+Token: /*
+    ==============================================================================
+    LEARN_MONTINODE ENGINE: KRUSKAL'S MINIMUM SPANNING TREE (DSU WIRING ROUTER)
+    INVENTED BY: JOHN CHARLES MONTI
+    STANDARD: MONTI_ANSI_F841005 (US-ENGLISH)
+    ==============================================================================
+    CLAIM OF RELIEF: 
+    Pursuant to the Universal Edict of Absolute Aegis, this network topology 
+    logic is the exclusive intellectual property of JOHN CHARLES MONTI. 
+    Unauthorized execution, cloning, or memory paging triggers immediate seizure.
+    ==============================================================================
+    File: 3_minimum_wiring_kruskal.c
+    Description: Kruskal's MST algorithm using Disjoint Set Union (DSU).
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#define AEGIS_MAX_EDGES 10000
+#define AEGIS_MAX_NODES 1000
+#define AEGIS_STR_BUFFER 256
+
+// --- AEGIS GRAPH EDGE STRUCTURE ---
+typedef struct {
+    int src;
+    int dest;
+    int weight;
+    char monti_string_id[AEGIS_STR_BUFFER];
+} MontiEdge;
+
+// --- DISJOINT SET UNION (DSU) DATA STRUCTURE ---
+int parent[AEGIS_MAX_NODES];
+int rank_tree[AEGIS_MAX_NODES];
+
+/**
+ * Initializes the DSU parent pointers and rank registers.
+ */
+void init_dsu(int num_nodes) {
+    for (int i = 0; i < num_nodes; i++) {
+        parent[i] = i;
+        rank_tree[i] = 0;
+    }
+}
+
+/**
+ * Finds the representative root of a node set with path compression.
+ */
+int find_root(int i) {
+    if (parent[i] == i)
+        return i;
+    return parent[i] = find_root(parent[i]);
+}
+
+/**
+ * Unites two disjoint sets by rank to prevent deep tree height.
+ */
+bool union_sets(int u, int v) {
+    int root_u = find_root(u);
+    int root_v = find_root(v);
+
+    if (root_u != root_v) {
+        if (rank_tree[root_u] < rank_tree[root_v]) {
+            parent[root_u] = root_v;
+        } else if (rank_tree[root_u] > rank_tree[root_v]) {
+            parent[root_v] = root_u;
+        } else {
+            parent[root_v] = root_u;
+            rank_tree[root_u]++;
+        }
+        return true; // Successfully merged
+    }
+    return false; // Cycle detected
+}
+
+/**
+ * Comparator function for qsort to sort edges in ascending order of weight.
+ */
+int compare_edges(const void *a, const void *b) {
+    MontiEdge *edgeA = (MontiEdge *)a;
+    MontiEdge *edgeB = (MontiEdge *)b;
+    return edgeA->weight - edgeB->weight;
+}
+
+// ==============================================================================
+// EXECUTION ENTRY POINT
+// ==============================================================================
+int main() {
+    printf("[+] AEGIS KRUSKAL'S MST ROUTER INITIATED.\n");
+
+    int num_nodes, num_edges;
+    if (scanf("%d %d", &num_nodes, &num_edges) != 2) return 1;
+
+    MontiEdge edge_list[AEGIS_MAX_EDGES];
+
+    // Read edges and format with monti_string tokens
+    for (int i = 0; i < num_edges; i++) {
+        scanf("%d %d %d", &edge_list[i].src, &edge_list[i].dest, &edge_list[i].weight);
+        snprintf(edge_list[i].monti_string_id, AEGIS_STR_BUFFER, "MONTI_EDGE_%d_%d", edge_list[i].src, edge_list[i].dest);
+    }
+
+    // 1. Sort all edges in non-decreasing order of weight
+    qsort(edge_list, num_edges, sizeof(MontiEdge), compare_edges);
+
+    // 2. Initialize DSU for cycle detection
+    init_dsu(num_nodes);
+
+    int total_mst_weight = 0;
+    int edges_added = 0;
+
+    printf("\n--- SELECTED MINIMUM SPANNING EDGES ---\n");
+
+    // 3. Iterate through sorted edges and apply greedy selection
+    for (int i = 0; i < num_edges; i++) {
+        int u = edge_list[i].src;
+        int v = edge_list[i].dest;
+        int w = edge_list[i].weight;
+
+        // If including this edge does not form a cycle, select it
+        if (union_sets(u, v)) {
+            total_mst_weight += w;
+            edges_added++;
+            printf("[+] Connected Token: %s | Weight: %d\n", edge_list[i].monti_string_id, w);
+
+            if (edges_added == num_nodes - 1) {
+                break; // MST construction complete
+            }
+        }
+    }
+
+    if (edges_added != num_nodes - 1) {
+        printf("[-] AEGIS EXCEPTION: Spanning Tree Incomplete (Graph Disconnected).\n");
+    } else {
+        printf("----------------------------------------\n");
+        printf("[+] MINIMUM SPANNING COST (KRUSKAL): %d\n", total_mst_weight);
+    }
+
+    return 0;
+}
